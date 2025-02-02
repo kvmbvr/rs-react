@@ -46,3 +46,32 @@ input {
 input:focus {
   border-color: blue;
 }
+
+.books {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.book {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  background-color: bisque;
+  border: 1px solid white;
+  border-radius: 8px;
+  font-size: 20px;
+  padding: 10px;
+}
+
+.title {
+  width: 50%;
+  font-style: italic;
+}
+.year {
+  width: 50%;
+  font-weight: bold;
+}

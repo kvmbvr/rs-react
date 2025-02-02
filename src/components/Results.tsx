@@ -10,9 +10,14 @@ class Results extends Component<ResultsType> {
     return (
       <div className="results">
         <h2>Items</h2>
-        <ul>
+        <ul className="books">
           {this.props.data.books.map((item, index) => {
-            return <li key={index}>{item.title}</li>;
+            return (
+              <li className="book" key={index}>
+                <p className="title">{item.title}</p>
+                <p className="year">{item.publishedYear}</p>
+              </li>
+            );
           })}
         </ul>
       </div>
