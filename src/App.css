@@ -70,10 +70,12 @@ input:focus {
 .title {
   width: 50%;
   font-style: italic;
+  margin: 0;
 }
 .year {
   width: 50%;
   font-weight: bold;
+  margin: 0;
 }
 
 .loading {
