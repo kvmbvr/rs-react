@@ -9,7 +9,7 @@ class Results extends Component<ResultsType> {
   render() {
     return (
       <div className="results">
-        <h2>Items</h2>
+        <h2>Books</h2>
         <ul className="books">
           {this.props.data.books.map((item, index) => {
             return (

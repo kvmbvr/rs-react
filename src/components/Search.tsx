@@ -1,9 +1,11 @@
 import { Component, FormEvent } from 'react';
 import Results from './Results';
 import APIResponse from '../types/APIResponse';
+import Spinner from './Spinner';
 
 type SearchState = {
   inputValue: string;
+  loading: boolean;
   data: APIResponse;
 };
 
@@ -12,6 +14,7 @@ class Search extends Component<Record<string, never>, SearchState> {
     super(props);
     this.state = {
       inputValue: '',
+      loading: false,
       data: {
         page: {
           pageNumber: 0,
@@ -49,14 +52,15 @@ class Search extends Component<Record<string, never>, SearchState> {
   }
 
   async handleClick(): Promise<void> {
+    this.setState({ loading: true });
     localStorage.setItem('inputValue', this.state.inputValue);
     try {
       const response = await fetch(
-        `https://stapi.co/api/v2/rest/book/search?offset=0&limit=0`
+        `https://stapi.co/api/v2/rest/book/search?pageNumber=1&pageSize=10`
       );
       if (!response.ok) throw new Error('Failed to fetch data');
       const data = await response.json();
-      this.setState({ data: data });
+      this.setState({ data: data, loading: false });
     } catch (error) {
       console.error('API Error:', error);
     }
@@ -75,7 +79,7 @@ class Search extends Component<Record<string, never>, SearchState> {
           <button onClick={this.handleClick}>Search</button>
         </div>
 
-        <Results data={this.state.data} />
+        {this.state.loading ? <Spinner /> : <Results data={this.state.data} />}
       </>
     );
   }
