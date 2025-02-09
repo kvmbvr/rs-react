@@ -1,7 +1,11 @@
 import { FormEvent, useState } from 'react';
 import useSearchQuery from '../hooks/useSearchQuery';
 
-const Search = () => {
+type SearchProps = {
+  setQuery: (query: string) => void;
+};
+
+const Search = ({ setQuery }: SearchProps) => {
   const [localStorageValue, setLocalStorageValue] = useSearchQuery(
     'inputValue',
     ''
@@ -14,6 +18,7 @@ const Search = () => {
 
   const handleClick = () => {
     setLocalStorageValue(value);
+    setQuery(value);
   };
 
   return (

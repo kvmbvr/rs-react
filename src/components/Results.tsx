@@ -24,8 +24,7 @@ const Results = ({ query }: ResultsProps) => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const url = `https://swapi.dev/api/people/`;
-
+        const url = `https://swapi.dev/api/people/?search=${query}`;
         const response = await fetch(url);
         if (!response.ok) throw new Error('Failed to fetch data');
 
@@ -42,6 +41,8 @@ const Results = ({ query }: ResultsProps) => {
   }, [query]);
 
   if (loading) return <Spinner />;
+
+  if (data.results.length <= 0) return <p>No items that for this query</p>;
 
   return (
     <div className="results">

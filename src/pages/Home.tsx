@@ -3,10 +3,14 @@ import Search from '../components/Search';
 import useSearchQuery from '../hooks/useSearchQuery';
 
 function Home() {
-  const [localStorageValue] = useSearchQuery('inputValue', '');
+  const [localStorageValue, setLocalStorageValue] = useSearchQuery(
+    'inputValue',
+    ''
+  );
+
   return (
     <>
-      <Search />
+      <Search setQuery={setLocalStorageValue} />
       <Results query={localStorageValue} />
     </>
   );
