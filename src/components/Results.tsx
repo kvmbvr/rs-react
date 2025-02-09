@@ -22,6 +22,7 @@ const Results = ({ query }: ResultsProps) => {
 
   const [loading, setLoading] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [error, setError] = useState(false);
   const page = parseInt(searchParams.get('page') || '1', 10);
 
   const url = `https://swapi.dev/api/people/?search=${query}&page=${page}`;
@@ -31,7 +32,9 @@ const Results = ({ query }: ResultsProps) => {
       try {
         setLoading(true);
         const response = await fetch(url);
-        if (!response.ok) throw new Error('Failed to fetch data');
+        if (!response.ok) {
+          setError(true);
+        }
 
         const result = await response.json();
         setData(result);
@@ -52,6 +55,7 @@ const Results = ({ query }: ResultsProps) => {
   if (loading) return <Spinner />;
 
   if (data.results.length <= 0) return <p>No items that for this query</p>;
+  if (error) return <p>No items that for this query</p>;
 
   return (
     <div className="results">
