@@ -10,7 +10,10 @@ function Home() {
 
   return (
     <>
-      <Search setQuery={setLocalStorageValue} />
+      <Search
+        setLocalStorageValue={setLocalStorageValue}
+        localStorageValue={localStorageValue}
+      />
       <Results query={localStorageValue} />
     </>
   );
