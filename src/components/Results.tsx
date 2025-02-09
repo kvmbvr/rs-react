@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import APIResponse from '../types/APIResponse';
 import Card from './Card';
 import Spinner from './Spinner';
+import Pagination from './Pagination';
 
 type ResultsProps = {
   query: string;
@@ -19,12 +21,15 @@ const Results = ({ query }: ResultsProps) => {
   });
 
   const [loading, setLoading] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const page = parseInt(searchParams.get('page') || '1', 10);
+
+  const url = `https://swapi.dev/api/people/?search=${query}&page=${page}`;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const url = `https://swapi.dev/api/people/?search=${query}`;
         const response = await fetch(url);
         if (!response.ok) throw new Error('Failed to fetch data');
 
@@ -38,7 +43,11 @@ const Results = ({ query }: ResultsProps) => {
     };
 
     fetchData();
-  }, [query]);
+  }, [query, url]);
+
+  const handlePageChange = (newPage: number) => {
+    setSearchParams({ page: newPage.toString() });
+  };
 
   if (loading) return <Spinner />;
 
@@ -46,12 +55,18 @@ const Results = ({ query }: ResultsProps) => {
 
   return (
     <div className="results">
-      <h2>Books</h2>
+      <h2>Search results</h2>
       <ul className="books">
         {data.results.map((item) => (
           <Card person={item} key={item.url} />
         ))}
       </ul>
+      <Pagination
+        currentPage={page}
+        next={data?.next ? page + 1 : null}
+        previous={data?.previous ? page - 1 : null}
+        onPageChange={handlePageChange}
+      />
     </div>
   );
 };

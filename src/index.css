@@ -135,3 +135,32 @@ input:focus {
   max-width: 500px;
   margin: 0 auto;
 }
+
+.pagination-buttons {
+  margin-top: 2rem;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.pagination-buttons button {
+  width: 200px;
+}
+
+.pagination-buttons button:disabled {
+  border-color: grey;
+  color: grey;
+  cursor: not-allowed;
+}
+
+.pagination-buttons p {
+  margin: 0;
+  height: 50px;
+  width: 50px;
+  border-radius: 8px;
+  background-color: black;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
