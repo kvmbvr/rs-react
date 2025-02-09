@@ -6,10 +6,7 @@ const Search = () => {
     'inputValue',
     ''
   );
-
-  const [value, setValue] = useState(() => {
-    return localStorageValue ? localStorageValue : '';
-  });
+  const [value, setValue] = useState(localStorageValue || '');
 
   const handleChange = (e: FormEvent<HTMLInputElement>) => {
     setValue(e.currentTarget.value);
@@ -18,6 +15,7 @@ const Search = () => {
   const handleClick = () => {
     setLocalStorageValue(value);
   };
+
   return (
     <>
       <div className="search">
