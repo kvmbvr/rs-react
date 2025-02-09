@@ -1,28 +1,21 @@
-import { Component } from 'react';
 import APIResponse from '../types/APIResponse';
+import Card from './Card';
 
 type ResultsType = {
   data: APIResponse;
 };
 
-class Results extends Component<ResultsType> {
-  render() {
-    return (
-      <div className="results">
-        <h2>Books</h2>
-        <ul className="books">
-          {this.props.data.books.map((item, index) => {
-            return (
-              <li className="book" key={index}>
-                <p className="title">{item.title}</p>
-                <p className="year">{item.publishedYear}</p>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-    );
-  }
-}
+const Results = ({ data }: ResultsType) => {
+  return (
+    <div className="results">
+      <h2>Books</h2>
+      <ul className="books">
+        {data.books.map((item) => {
+          return <Card book={item} key={item.uid} />;
+        })}
+      </ul>
+    </div>
+  );
+};
 
 export default Results;
