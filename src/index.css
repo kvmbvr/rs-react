@@ -67,7 +67,22 @@ input:focus {
   border-color: blue;
 }
 
-.books {
+.results {
+  display: flex;
+  gap: 15px;
+}
+
+.search-results {
+  width: 100%;
+}
+
+.person-details {
+  width: 30%;
+  background-color: burlywood;
+  border-radius: 8px;
+}
+
+.results-list {
   margin: 0;
   padding: 0;
   display: flex;
@@ -75,7 +90,7 @@ input:focus {
   gap: 10px;
 }
 
-.book {
+.result-item {
   display: flex;
   align-items: center;
   justify-content: center;

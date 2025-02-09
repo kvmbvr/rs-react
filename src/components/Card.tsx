@@ -6,7 +6,7 @@ type CardProps = {
 
 const Card = ({ person }: CardProps) => {
   return (
-    <li className="book">
+    <li className="result-item">
       <p className="title">{person.name}</p>
       <p className="year">{person.birth_year}</p>
     </li>

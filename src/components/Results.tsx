@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { Outlet, useSearchParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import APIResponse from '../types/APIResponse';
 import Card from './Card';
 import Spinner from './Spinner';
@@ -23,7 +24,9 @@ const Results = ({ query }: ResultsProps) => {
   const [loading, setLoading] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const [error, setError] = useState(false);
-  const page = parseInt(searchParams.get('page') || '1', 10);
+  const [page, setPage] = useState(
+    parseInt(searchParams.get('page') || '1', 10)
+  );
 
   const url = `https://swapi.dev/api/people/?search=${query}&page=${page}`;
 
@@ -50,27 +53,34 @@ const Results = ({ query }: ResultsProps) => {
 
   const handlePageChange = (newPage: number) => {
     setSearchParams({ page: newPage.toString() });
+    setPage(newPage);
   };
 
   if (loading) return <Spinner />;
 
-  if (data.results.length <= 0) return <p>No items that for this query</p>;
+  if (data.results && data.results.length <= 0)
+    return <p>No items that for this query</p>;
   if (error) return <p>No items that for this query</p>;
 
   return (
     <div className="results">
-      <h2>Search results</h2>
-      <ul className="books">
-        {data.results.map((item) => (
-          <Card person={item} key={item.url} />
-        ))}
-      </ul>
-      <Pagination
-        currentPage={page}
-        next={data?.next ? page + 1 : null}
-        previous={data?.previous ? page - 1 : null}
-        onPageChange={handlePageChange}
-      />
+      <div className="search-results">
+        <h2>Search results</h2>
+        <ul className="results-list">
+          {data.results.map((item) => (
+            <Link to={`/person/${encodeURIComponent(item.url)}`} key={item.url}>
+              <Card person={item} />
+            </Link>
+          ))}
+        </ul>
+        <Pagination
+          currentPage={page}
+          next={data?.next ? page + 1 : null}
+          previous={data?.previous ? page - 1 : null}
+          onPageChange={handlePageChange}
+        />
+      </div>
+      <Outlet />
     </div>
   );
 };
