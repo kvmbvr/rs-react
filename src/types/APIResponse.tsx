@@ -1,23 +1,13 @@
-import Book from './Book';
+import Person from './Person';
 
-type PageInfo = {
-  pageNumber: number;
-  pageSize: number;
-  numberOfElements: number;
-  totalElements: number;
-  totalPages: number;
-  firstPage: boolean;
-  lastPage: boolean;
+type APIResponse = {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: Person[];
+  created: string;
+  edited: string;
+  url: string;
 };
 
-type SortInfo = {
-  clauses?: number[];
-};
-
-type ApiResponse = {
-  page: PageInfo;
-  sort: SortInfo;
-  books: Book[];
-};
-
-export default ApiResponse;
+export default APIResponse;

@@ -1,14 +1,14 @@
-import Book from '../types/Book';
+import Person from '../types/Person';
 
 type CardProps = {
-  book: Book;
+  person: Person;
 };
 
-const Card = ({ book }: CardProps) => {
+const Card = ({ person }: CardProps) => {
   return (
     <li className="book">
-      <p className="title">{book.title}</p>
-      <p className="year">{book.publishedYear}</p>
+      <p className="title">{person.name}</p>
+      <p className="year">{person.birth_year}</p>
     </li>
   );
 };

@@ -9,17 +9,13 @@ type ResultsProps = {
 
 const Results = ({ query }: ResultsProps) => {
   const [data, setData] = useState<APIResponse>({
-    page: {
-      pageNumber: 0,
-      pageSize: 0,
-      numberOfElements: 0,
-      totalElements: 0,
-      totalPages: 0,
-      firstPage: false,
-      lastPage: false,
-    },
-    sort: {},
-    books: [],
+    count: 0,
+    next: '',
+    previous: '',
+    results: [],
+    created: '',
+    edited: '',
+    url: '',
   });
 
   const [loading, setLoading] = useState(false);
@@ -28,7 +24,7 @@ const Results = ({ query }: ResultsProps) => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const url = `https://stapi.co/api/v2/rest/book/search?pageNumber=1&pageSize=10`;
+        const url = `https://swapi.dev/api/people/`;
 
         const response = await fetch(url);
         if (!response.ok) throw new Error('Failed to fetch data');
@@ -51,8 +47,8 @@ const Results = ({ query }: ResultsProps) => {
     <div className="results">
       <h2>Books</h2>
       <ul className="books">
-        {data.books.map((item) => (
-          <Card book={item} key={item.uid} />
+        {data.results.map((item) => (
+          <Card person={item} key={item.url} />
         ))}
       </ul>
     </div>
